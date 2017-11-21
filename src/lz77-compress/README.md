@@ -7,4 +7,4 @@ A simplified implementation of the LZ77 compression algorithm in POSIX C.
 gcc lz77.c -o lz77-compressor
 
 # Use
-./lz77-compressor <Encode-String> <Dictionary-Size> <Lookahead-Buffer-Size>
+./lz77-compressor (Encode-String) (Dictionary-Size) (Lookahead-Buffer-Size)
