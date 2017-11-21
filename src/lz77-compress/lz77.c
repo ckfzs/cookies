@@ -136,6 +136,23 @@ static int longest_match(LZ77 *lz77)
     return l;
 }
 
+/* 释放压缩结果在堆区占用的内存
+ */
+static void lz77_free(LZ77 *lz77)
+{
+    PLC *cur, *next;
+    if (lz77 == NULL)
+        return;
+    
+    cur = lz77->link.head;
+    while (cur)
+    {
+        next = cur->next;
+        free(cur);
+        cur = next;
+    }
+}
+
 /* LZ77压缩算法
  */
 void lz77_compress(const char *str, int dic_size, int buffer_size)
@@ -170,6 +187,7 @@ void lz77_compress(const char *str, int dic_size, int buffer_size)
     }
     // 打印最终结果
     print_lz77_compressed_data(&lz77);
+    lz77_free(&lz77);
 }
 
 int main(int argc, char *argv[])
