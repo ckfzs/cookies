@@ -58,7 +58,7 @@ static int substring_equal(const char *str, int sub1_begin, int sub1_end, int su
 {
     int sub1_len = sub1_end - sub1_begin + 1;
     int sub2_len = sub2_end - sub2_begin + 1;
-    int repetition, last, i;
+    int repetition, last, i, ret;
     char *new_sub2, *cur;
     if (sub1_len <= 0 || sub2_len <= 0)
         return 0;
@@ -78,7 +78,9 @@ static int substring_equal(const char *str, int sub1_begin, int sub1_end, int su
         cur += sub2_len;
     }
     memcpy(cur, str + sub2_begin, last);
-    return strncmp(str + sub1_begin, new_sub2, sub1_len) == 0;
+    ret = (strncmp(str + sub1_begin, new_sub2, sub1_len) == 0);
+    free(new_sub2);
+    return ret;
 }
 
 /* 求取当前cursor下的最大匹配
